@@ -62,11 +62,11 @@ export default function MenuPage() {
   return (
     <div>
       <h1 className="text-3xl font-bold mb-4">Menu</h1>
-      {Object.keys(menuItems).map((category) => (
+      {Object.entries(menuItems).map(([category, details]) => (
         <div key={category} className="mb-8">
           <h2 className="text-2xl font-semibold mb-2">{category}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {menuItems[category].map((item: any) => (
+            {details.map((item: any) => (
               <MenuCard
                 key={item.id}
                 name={item.name}
