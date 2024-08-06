@@ -5,13 +5,15 @@ import { useState } from "react";
 export default function ContactForm() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
+  const [submitted, setSubmitted] = useState(false);
+
   const handleChange = (e: any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    alert("Message sent!");
+    setSubmitted(true);
     setForm({ name: "", email: "", message: "" });
   };
 
@@ -56,6 +58,9 @@ export default function ContactForm() {
       >
         Send Message
       </button>
+      {submitted && (
+        <p className="text-green-500">Thank you for your message!</p>
+      )}
     </form>
   );
 }

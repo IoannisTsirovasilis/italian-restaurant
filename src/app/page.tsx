@@ -9,11 +9,11 @@ export default function Home() {
         the freshest ingredients and traditional recipes.
       </p>
       <Image
-        src="https://via.placeholder.com/800x500?text=La+Bella+Italia"
+        src="/images/restaurant.jpg"
         alt="Restaurant Image"
         className="mx-auto mb-4"
-        width={800}
-        height={500}
+        width={500}
+        height={300}
       />
       <p>
         Located at 1234 Pasta Lane, Italyville. Open daily from 11:00 AM to

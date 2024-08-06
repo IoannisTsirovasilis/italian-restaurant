@@ -21,8 +21,41 @@ const menuItems = [
 export default function OrderPage() {
   const [cart, setCart] = useState<any>([]);
 
+  const [submitted, setSubmitted] = useState(false);
+
   const addToCart = (item: any) => {
-    setCart([...cart, item]);
+    const existingItem = cart.find((cartItem: any) => cartItem.id === item.id);
+    if (existingItem) {
+      setCart(
+        cart.map((cartItem: any) =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem,
+        ),
+      );
+    } else {
+      setCart([...cart, { ...item, quantity: 1 }]);
+    }
+  };
+
+  const increaseQuantity = (item: any) => {
+    setCart(
+      cart.map((cartItem: any) =>
+        cartItem.id === item.id
+          ? { ...cartItem, quantity: cartItem.quantity + 1 }
+          : cartItem,
+      ),
+    );
+  };
+
+  const decreaseQuantity = (item: any) => {
+    setCart(
+      cart.map((cartItem: any) =>
+        cartItem.id === item.id
+          ? { ...cartItem, quantity: Math.max(1, cartItem.quantity - 1) }
+          : cartItem,
+      ),
+    );
   };
 
   const removeFromCart = (item: any) => {
@@ -30,7 +63,7 @@ export default function OrderPage() {
   };
 
   const submitOrder = () => {
-    alert("Order submitted!");
+    setSubmitted(true);
     setCart([]);
   };
 
@@ -57,7 +90,13 @@ export default function OrderPage() {
       <h2 className="text-2xl font-bold mb-4">Your Cart</h2>
       <div>
         {cart.map((item: any) => (
-          <CartItem key={item.id} item={item} removeFromCart={removeFromCart} />
+          <CartItem
+            key={item.id}
+            item={item}
+            increaseQuantity={increaseQuantity}
+            decreaseQuantity={decreaseQuantity}
+            removeFromCart={removeFromCart}
+          />
         ))}
       </div>
       <button
@@ -66,6 +105,7 @@ export default function OrderPage() {
       >
         Submit Order
       </button>
+      {submitted && <p className="text-green-500">Thank you for your order!</p>}
     </div>
   );
 }
